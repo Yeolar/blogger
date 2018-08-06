@@ -29,13 +29,13 @@ def post_set(request, id=None, **kwargs):
         post = Post()
 
     if request.method == 'POST':
-        form = PostForm(request.POST, instance=post)
+        form = PostForm(request.POST, instance=post, author=request.user)
 
         if form.is_valid():
             post = form.save()
             return redirect(post.get_absolute_url())
     else:
-        form = PostForm(instance=post)
+        form = PostForm(instance=post, author=request.user)
         form.fields['topic'].queryset = Topic.objects.all()
 
     return render_to_response(
@@ -111,13 +111,15 @@ class PostListView(ListView):
 
 class PrivateListView(ListView):
 
-    queryset = Post.objects.private()
     paginate_by = getattr(settings, 'NOTE_PAGESIZE', 20)
     template_name = 'note/private_list.html'
 
     @method_decorator(superuser_required)
     def dispatch(self, *args, **kwargs):
         return super(PrivateListView, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return Post.objects.private()
 
     def get_context_data(self, **kwargs):
         context = super(PrivateListView, self).get_context_data(**kwargs)
@@ -129,13 +131,15 @@ class PrivateListView(ListView):
 
 class DraftListView(ListView):
 
-    queryset = Post.objects.draft()
     paginate_by = getattr(settings, 'NOTE_PAGESIZE', 20)
     template_name = 'note/draft_list.html'
 
     @method_decorator(superuser_required)
     def dispatch(self, *args, **kwargs):
         return super(DraftListView, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return Post.objects.draft()
 
     def get_context_data(self, **kwargs):
         context = super(DraftListView, self).get_context_data(**kwargs)
