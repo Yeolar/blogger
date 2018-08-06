@@ -22,6 +22,28 @@ from ..util.decorators import superuser_required
 
 
 @superuser_required
+def topic_set(request, id=None, **kwargs):
+    if id:
+        topic = Topic.objects.get(id=id)
+    else:
+        topic = Topic()
+
+    if request.method == 'POST':
+        form = TopicForm(request.POST, instance=topic)
+
+        if form.is_valid():
+            topic = form.save()
+            return redirect(topic.get_absolute_url())
+    else:
+        form = TopicForm(instance=topic)
+
+    return render_to_response(
+            'note/topic_set.html',
+            {'form': form, 'id': id},
+            RequestContext(request))   # use for csrf
+
+
+@superuser_required
 def post_set(request, id=None, **kwargs):
     if id:
         post = Post.objects.get(id=id)

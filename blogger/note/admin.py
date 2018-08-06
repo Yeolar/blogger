@@ -8,8 +8,17 @@ from .models import *
 
 
 class TopicAdmin(admin.ModelAdmin):
-    list_per_page = 50
+    list_display        = ('name', 'publish', 'public')
+    list_filter         = ('publish', 'public')
+    list_per_page       = 50
+    search_fields       = ('name', 'text')
     prepopulated_fields = {'slug': ('name',)}
+    fieldsets           = ((None, {
+        'fields': (
+            ('name', 'slug'),
+             'text',
+             'publish')
+        }),)
 
 admin.site.register(Topic, TopicAdmin)
 

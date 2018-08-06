@@ -10,13 +10,21 @@ from .views import *
 
 urlpatterns = [
     # operation
+    url(r'^topic/set/(?P<id>\d+)/$',
+        topic_set,
+        name='note_topic_set'
+    ),
+    url(r'^topic/set/$',
+        topic_set,
+        name='note_topic_set'
+    ),
     url(r'^post/set/(?P<id>\d+)/$',
         post_set,
-        name='note_set'
+        name='note_post_set'
     ),
     url(r'^post/set/$',
         post_set,
-        name='note_set'
+        name='note_post_set'
     ),
     # date
     url(r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)/$',

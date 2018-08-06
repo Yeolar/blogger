@@ -18,6 +18,7 @@ class Topic(models.Model):
 
     name = models.CharField(u'名称', max_length=100)
     slug = models.SlugField(u'别名', unique=True)
+    text = models.TextField(u'文本', blank=True)
     publish = models.DateTimeField(u'发布时间', default=datetime.min)
     public = models.BooleanField(u'公开', editable=False, default=False)
 

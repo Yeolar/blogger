@@ -14,7 +14,7 @@
 #form-input {
   margin: 20px 0;
 }
-#id_title, #id_topic, #id_publish, #id_status {
+#id_name, #id_publish {
   height: 34px;
   font-size: 1em;
   line-height: 1.42857143;
@@ -32,7 +32,7 @@
 <script type='text/javascript'>
 function calcHash() {
     try {
-        var hash = new jsSHA($('#id_title').val() + $('#id_publish').val(), 'TEXT');
+        var hash = new jsSHA($('#id_name').val() + $('#id_publish').val(), 'TEXT');
         $('#id_slug').val(hash.getHash('SHA-1', 'HEX', 1).slice(0, 10));
     }
     catch (e) {
@@ -59,20 +59,18 @@ ClassicEditor
 
 {% block content %}
 <div id="content">
-<form class="form-horizontal" role="form" action="{% if id %}{% url 'note_post_set' id %}{% else %}{% url 'note_post_set' %}{% endif %}" method="POST">{% csrf_token %}
+<form class="form-horizontal" role="form" action="{% if id %}{% url 'note_topic_set' id %}{% else %}{% url 'note_topic_set' %}{% endif %}" method="POST">{% csrf_token %}
   <div id="form-input">
   <div class="form-group">
-    <div class="col-sm-8">{{ form.title }}</div>
+    <div class="col-sm-12">{{ form.name }}</div>
     <div class="col-sm-0">{{ form.slug }}</div>
-    <div class="col-sm-4">{{ form.topic }}</div>
   </div>
   <div class="form-group">
     <div class="col-sm-12">{{ form.text }}</div>
   </div>
   <div class="form-group">
     <div class="col-sm-3">{{ form.publish }}</div>
-    <div class="col-sm-2">{{ form.status }}</div>
-    <div class="col-sm-7">
+    <div class="col-sm-9">
       <button class="btn btn-primary pull-right" type="submit">保存</button>
     </div>
   </div>

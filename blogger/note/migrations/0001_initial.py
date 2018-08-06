@@ -39,6 +39,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=100, verbose_name='\u540d\u79f0')),
                 ('slug', models.SlugField(unique=True, verbose_name='\u522b\u540d')),
+                ('text', models.TextField(verbose_name='\u6587\u672c', blank=True)),
                 ('publish', models.DateTimeField(default=datetime.datetime(1, 1, 1, 0, 0), verbose_name='\u53d1\u5e03\u65f6\u95f4')),
                 ('public', models.BooleanField(default=False, verbose_name='\u516c\u5f00', editable=False)),
             ],

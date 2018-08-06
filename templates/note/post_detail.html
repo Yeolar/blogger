@@ -19,6 +19,7 @@ $().showUp('.navbar', {
 {% block navbar_right %}
 <ul class="nav navbar-nav navbar-right">
   {% if user.is_superuser %}
+  <li><a href="/note/topic/set/"><i class="icon-plus"></i></a></li>
   <li><a href="/note/post/set/{{ object.id }}"><i class="icon-pencil"></i></a></li>
   <li><a href="/admin/"><i class="icon-user"></i></a></li>
   <li><a href="/accounts/logout/"><i class="icon-signout"></i></a></li>

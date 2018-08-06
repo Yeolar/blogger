@@ -9,6 +9,27 @@ from django.forms import HiddenInput, TextInput, Select, Textarea
 from .models import *
 
 
+class TopicForm(ModelForm):
+
+    required_css_class = 'required'
+    error_css_class = 'error'
+
+    class Meta:
+        model = Topic
+        fields = ('name', 'slug', 'text', 'publish')
+        widgets = {
+            'name': TextInput(
+                attrs={
+                    'class': 'form-control input-sm',
+                    'placeholder': u'主题',
+                    'onkeyup': 'calcHash()'
+                }),
+            'slug': HiddenInput(attrs={'class': 'form-control input-sm'}),
+            'text': Textarea(attrs={'class': 'form-control input-sm'}),
+            'publish': TextInput(attrs={'class': 'form-control input-sm'}),
+        }
+
+
 class PostForm(ModelForm):
 
     required_css_class = 'required'
