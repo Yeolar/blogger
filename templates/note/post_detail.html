@@ -1,15 +1,11 @@
 {% extends "note/base_note.html" %}
+{% load static %}
 
 {% block title %}{{ object.title }}{% endblock %}
 
-{% block style %}
-<link rel="stylesheet" type="text/css" href="/static/contrib/showup/showup.css" />
-{% endblock %}
-
 {% block script %}
-<script type="text/javascript" src="/static/contrib/showup/showup.js"></script>
-<script type="text/javascript" src="/static/contrib/ckeditor5/ckeditor.js"></script>
-<script type="text/javascript" src="/static/contrib/ckeditor5/translations/zh-cn.js"></script>
+<script type="text/javascript" src="{% static "ckeditor5/ckeditor.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor5/translations/zh-cn.js" %}"></script>
 <script type="text/javascript">
 /*
 $().showUp('.navbar', {
@@ -18,6 +14,18 @@ $().showUp('.navbar', {
 });
 */
 </script>
+{% endblock %}
+
+{% block navbar_right %}
+<ul class="nav navbar-nav navbar-right">
+  {% if user.is_superuser %}
+  <li><a href="/note/post/set/{{ object.id }}"><i class="icon-pencil"></i></a></li>
+  <li><a href="/admin/"><i class="icon-user"></i></a></li>
+  <li><a href="/accounts/logout/"><i class="icon-signout"></i></a></li>
+  {% else %}
+  <li><a href="/accounts/login/"><i class="icon-signin"></i></a></li>
+  {% endif %}
+</ul>
 {% endblock %}
 
 {% block content %}
