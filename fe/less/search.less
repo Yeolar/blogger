@@ -1,0 +1,61 @@
+.search-form-control {
+  display: table-cell;
+  margin-top: 0;
+  padding: 6px 12px;
+  padding-left: 26px;
+  width: 100%;
+  color: #555;
+  vertical-align: middle;
+  background: #eee url(../../m/img/search.png) no-repeat 8px center;
+  background-size: 13px 13px;
+  border: #ccc;
+  -webkit-font-smoothing: antialiased;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.search-form-control {
+  height: 34px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+}
+.search-form-control:focus {
+  background: #fff url(../../m/img/search.png) no-repeat 8px center;
+  border: 1px solid #c24631;//ccc;
+  outline: none;
+}
+.search-form-control::-moz-placeholder {
+  color: #999;
+  opacity: 1;
+}
+.search-form-control:-ms-input-placeholder {
+  color: #999;
+}
+.search-form-control::-webkit-input-placeholder {
+  color: #999;
+}
+.search-form-control::-ms-expand {
+  background-color: transparent;
+  border: 0;
+}
+
+.input-group {
+  .search-form-control {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+
+    &:focus {
+      z-index: 3;
+    }
+  }
+}
+

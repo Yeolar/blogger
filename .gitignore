@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+/fe/node_modules
+/fe/dist
+/static-dev/blogger/
+/static/
+/media/

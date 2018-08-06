@@ -1,0 +1,175 @@
+html,
+body {
+  height: 100%;
+}
+
+a {
+  color: #2561c2; /*093d72;*/
+}
+
+a:hover,
+a:focus {
+  color: #b42522;
+}
+
+h1,
+.h1 {
+  font-size: 24px; /* 36px; */
+}
+
+h2,
+.h2 {
+  font-size: 20px; /* 30px; */
+}
+
+h3,
+.h3 {
+  font-size: 18px; /* 24px; */
+}
+
+h4,
+.h4 {
+  font-size: 16px; /* 18px; */
+}
+
+pre {
+  background-color: inherit;
+  border: 0px;
+  border-radius: 0;
+}
+
+blockquote p {
+  font-size: 14px;
+}
+
+a.list-group-item.active,
+a.list-group-item.active:hover,
+a.list-group-item.active:focus {
+  z-index: 2;
+  color: #ffffff;
+  background-color: #47a447;
+  border-color: #47a447;
+}
+
+.pagination > .info > a,
+.pagination > .info > span,
+.pagination > .info > a:hover,
+.pagination > .info > span:hover,
+.pagination > .info > a:focus,
+.pagination > .info > span:focus {
+  z-index: 2;
+  color: #999999;
+  cursor: default;
+  background-color: #dddddd;
+  border-color: #dddddd;
+}
+
+.pager li > a,
+.pager li > span {
+  border: 0;
+}
+
+.pager .previous {
+  text-align: left;
+}
+
+.pager .next {
+  text-align: right;
+}
+
+.highlight {
+  padding: 2px 0;
+  color: #c7254e;
+  white-space: nowrap;
+  background-color: #f9f2f4;
+}
+
+.link-icon {
+  color: #999999;
+}
+
+.link-icon:hover,
+.link-icon:focus {
+  color: #222222;
+}
+
+.table-hide-overflow {
+  table-layout: fixed;
+}
+
+.table-hide-overflow th,
+.table-hide-overflow td {
+  word-break: keep-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -80px;
+  /* Pad bottom by footer height */
+  padding: 70px 0 80px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  padding: 30px 0;
+  height: 80px;
+  background-color: #f5f5f5;
+}
+
+#home-post {
+  margin: 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #eeeeee;
+}
+
+#home-post h1,
+#home-post h2,
+#home-post h3,
+#home-post h4,
+#home-post h5,
+#home-post h6 {
+    font-size: 14px;
+}
+
+#home-post-text {
+    margin-bottom: 10px;
+}
+
+#search-post,
+#search-schedule {
+    padding: 5px 0;
+}
+
+#search-post > div,
+#search-schedule > div {
+    padding: 2px 0;
+}
+
+#post-other-topic {
+    margin: 0 0 10px 10px;
+}
+
+#post-text {
+    margin-bottom: 20px;
+}
+
+#schedule-text {
+  margin: 20px 0;
+}
+
+#home-post-text p,
+#home-post-text li,
+#post-text p,
+#post-text li {
+  line-height: 1.6;
+}
+
+#post-comment {
+  padding: 14px 0;
+}

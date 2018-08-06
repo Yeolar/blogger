@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+{% load static %}
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="Yeolar" />
+<meta name="generator" content="yeolar.com" />
+<title>{% block title %}记华年{% endblock %}</title>
+<link rel="apple-touch-icon" href="{% static "m/img/favicon_144.png" %}" />
+<link rel="shortcut icon" href="{% static "m/img/favicon.png" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "blogger/css/blogger.min.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "fontawesome/css/font-awesome.min.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "o/css/patch.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "o/css/showup.css" %}" />
+{% block style %}{% endblock %}
+<!--[if lt IE 9]>
+<script src="{% static "o/js/ie8-responsive-file-warning.js" %}"></script>
+<![endif]-->
+<script src="{% static "o/js/ie-emulation-modes-warning.js" %}"></script>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="{% static "o/js/html5shiv.js" %}"></script>
+<script src="{% static "o/js/respond.min.js" %}"></script>
+<![endif]-->
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="/">记华年</a>
+  </div>
+  <div class="container">
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li{% block list_nav_active %}{% endblock %}><a href="/note/"><i class="icon-list"></i></a></li>
+        {% if user.is_superuser %}
+        <li{% block private_nav_active %}{% endblock %}><a href="/note/privates/"><i class="icon-lock"></i></a></li>
+        <li{% block draft_nav_active %}{% endblock %}><a href="/note/drafts/"><i class="icon-edit"></i></a></li>
+        {% endif %}
+        <li{% block topic_nav_active %}{% endblock %}><a href="/note/topics/"><i class="icon-bookmark"></i></a></li>
+      </ul>
+      <form action="{% url 'note_search' %}" method="GET" id="search-form" class="navbar-form navbar-left" role="search">
+        <div class="form-group input-group">
+          <input type="text" name="q" value="{{ search_terms }}" class="search-form-control" placeholder="搜索">
+        </div>
+      </form>
+      {% block navbar_right %}
+      <ul class="nav navbar-nav navbar-right">
+        {% if user.is_superuser %}
+        <li><a href="/note/post/set/"><i class="icon-pencil"></i></a></li>
+        <li><a href="/admin/"><i class="icon-user"></i></a></li>
+        <li><a href="/accounts/logout/"><i class="icon-signout"></i></a></li>
+        {% else %}
+        <li><a href="/accounts/login/"><i class="icon-signin"></i></a></li>
+        {% endif %}
+      </ul>
+      {% endblock %}
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+<div id="wrap">
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
+</div>
+<div id="footer">
+  <div class="container">
+    <p class="text-center">© 2018 &nbsp; <a href="mailto:yeolar@gmail.com" title="Contact Me">Yeolar</a></p>
+  </div>
+</div>
+
+<script src="{% static "o/js/jquery.min.js" %}"></script>
+<script src="{% static "o/js/holder.min.js" %}"></script>
+<script src="{% static "o/js/showup.js" %}"></script>
+<script src="{% static "blogger/js/blogger.min.js" %}"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="{% static "o/js/ie10-viewport-bug-workaround.js" %}"></script>
+{% block script %}{% endblock %}
+</body>
+</html>

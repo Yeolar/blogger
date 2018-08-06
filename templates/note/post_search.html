@@ -1,0 +1,75 @@
+{% extends "note/base_note.html" %}
+
+{% load searchtags %}
+
+{% block title %}{{ block.super }} &raquo; 搜索结果{% endblock %}
+{% block script %}
+<script type="text/javascript">
+function highlight(e, text, className) {
+    var val = e.html();
+    var pos = val.toLowerCase().indexOf(text.toLowerCase());
+    if (pos >= 0) {
+        var span = $('<span></span>');
+        span.addClass(className);
+        span.html(val.substr(pos, text.length));
+        e.html(val.substr(0, pos));
+        e.append(span);
+        e.append(val.substr(pos + text.length));
+    }
+}
+$(document).ready(function() {
+    $('#search-post a#title, #search-post div#summary, #search-post span#author').each(function() {
+        var keys = '{{ cleaned_search_terms }}'.split(' ');
+        for (var i = 0; i < keys.length; i++) {
+            highlight($(this), keys[i], 'highlight');
+        }
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="content">
+  {% if paged_objects.object_list %}
+    {% for post in paged_objects.object_list %}
+    <div id="search-post">
+      <div>
+        <a id="title" href="{{ post.get_absolute_url }}">{{ post.title|cut_text:80 }}</a>
+      </div>
+      <div id="summary">
+      {{ post.text|safe|search_summary:cleaned_search_terms }}
+      </div>
+      <div class="text-success">
+        <span id="date">{{ post.publish|date:"Y-m-d H:i" }}</span>
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    {% if message %}
+    <div class="alert alert-success">{{ message }}</div>
+    {% else %}
+    <div class="alert alert-success">没有文章存在或可见。</div>
+    {% endif %}
+  {% endif %}
+
+  {% if paged_objects.paginator.num_pages > 1 %}
+    <ul class="pagination pagination-sm pull-right">
+      {% if paged_objects.has_next %}
+      <li><a href="?q={{ search_terms }}&page=last"><i class="icon-double-angle-left"></i></a></li>
+      <li><a href="?q={{ search_terms }}&page={{ paged_objects.next_page_number }}"><i class="icon-angle-left"></i></a></li>
+      {% else %}
+      <li class="disabled"><span><i class="icon-double-angle-left"></i></span></li>
+      <li class="disabled"><span><i class="icon-angle-left"></i></span></li>
+      {% endif %}
+      <li class="info"><span>{{ paged_objects.number }}/{{ paged_objects.paginator.num_pages }}</span></li>
+      {% if paged_objects.has_previous %}
+      <li><a href="?q={{ search_terms }}&page={{ paged_objects.previous_page_number }}"><i class="icon-angle-right"></i></a></li>
+      <li><a href="?q={{ search_terms }}&page=1"><i class="icon-double-angle-right"></i></a></li>
+      {% else %}
+      <li class="disabled"><span><i class="icon-angle-right"></i></span></li>
+      <li class="disabled"><span><i class="icon-double-angle-right"></i></span></li>
+      {% endif %}
+    </ul>
+  {% endif %}
+</div>
+{% endblock %}

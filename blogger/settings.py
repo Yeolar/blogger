@@ -37,6 +37,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'blogger.accounts',
+    'blogger.fileupload',
+    'blogger.home',
+    'blogger.note',
+    'blogger.search',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -55,7 +61,7 @@ ROOT_URLCONF = 'blogger.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,18 +91,85 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static-dev'),
+)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+
+# Misc configs
+
+DATE_FORMAT = 'Y-m-d'
+DATETIME_FORMAT = 'Y-m-d P'
+
+HOME_PAGESIZE = 10
+NOTE_PAGESIZE = 50
+SEARCH_PAGESIZE = 30
+SINGLELINE_SEARCH_PAGESIZE = 50
+
+
+# Logging
+
+LOGLEVEL = 'INFO'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '[%(levelname).1s] %(message)s'
+        },
+        'verbose': {
+            'format': '[%(levelname).1s %(asctime)s %(module)s:%(lineno)d %(process)d] %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': LOGLEVEL,
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        'file': {
+            'level': LOGLEVEL,
+            'class': 'logging.FileHandler',
+            'filename': '/var/log/blogger/blogger.log',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['file'],
+            'level': LOGLEVEL,
+            'propagate': True,
+        },
+        'blogger': {
+            'handlers': ['file'],
+            'level': LOGLEVEL,
+            'propagate': True,
+        },
+        'blogger.command': {
+            'handlers': ['console'],
+            'level': LOGLEVEL,
+            'propagate': True,
+        },
+    },
+}
+

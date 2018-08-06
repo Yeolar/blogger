@@ -1,0 +1,43 @@
+{% extends "home/base_home.html" %}
+
+{% block title %}{{ block.super }}{% endblock %}
+
+{% block content %}
+<div id="content">
+  {% for post in object_list %}
+  <div id="home-post">
+    <h4><a href="{{ post.get_absolute_url }}"><strong>{{ post.title }}</strong></a></h4>
+    <p class="text-muted clearfix">
+      {% ifequal post.status 2 %}<span class="label label-success">私有</span>{% endifequal %}
+      <span class="pull-right">
+        <span id="date">{{ post.publish|date:"Y-m-d H:i" }}</span>
+      </span>
+    </p>
+    <div id="home-post-text">
+      {{ post.html_short|safe }}
+      {% if post.shortable %}<p class="text-right small"><a href="{{ post.get_absolute_url }}">更多 <i class="icon-double-angle-right"></i></a></p>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+
+  {% if is_paginated %}
+    <ul class="pagination pagination-sm pull-right">
+      {% if page_obj.has_next %}
+      <li><a href="?page=last"><i class="icon-double-angle-left"></i></a></li>
+      <li><a href="?page={{ page_obj.next_page_number }}"><i class="icon-angle-left"></i></a></li>
+      {% else %}
+      <li class="disabled"><span><i class="icon-double-angle-left"></i></span></li>
+      <li class="disabled"><span><i class="icon-angle-left"></i></span></li>
+      {% endif %}
+      <li class="info"><span>{{ page_obj.number }}/{{ paginator.num_pages }}</span></li>
+      {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}"><i class="icon-angle-right"></i></a></li>
+      <li><a href="?page=1"><i class="icon-double-angle-right"></i></a></li>
+      {% else %}
+      <li class="disabled"><span><i class="icon-angle-right"></i></span></li>
+      <li class="disabled"><span><i class="icon-double-angle-right"></i></span></li>
+      {% endif %}
+    </ul>
+  {% endif %}
+</div>
+{% endblock %}

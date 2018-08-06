@@ -1,0 +1,19 @@
+{% extends "note/base_note.html" %}
+
+{% block title %}{{ block.super }} &raquo; 文章主题{% endblock %}
+
+{% block topic_nav_active %} class="active"{% endblock %}
+
+{% block content %}
+<div id="content">
+  {% if object_list %}
+  <ul class="list-group">
+    {% for topic in object_list %}
+    <li class="list-group-item"><span class="badge">{% if user.is_superuser %}{{ topic.post_set.published|length }}{% else %}{{ topic.post_set.public|length }}{% endif %}</span><a href="{{ topic.get_absolute_url }}">{{ topic }}</a></li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="alert alert-danger">没有主题存在。</p>
+  {% endif %}
+</div>
+{% endblock %}

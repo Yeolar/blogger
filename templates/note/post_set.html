@@ -1,0 +1,81 @@
+{% extends "note/base_note.html" %}
+
+{% block title %}{% if id %}修改{% else %}创建{% endif %}{% endblock %}
+
+{% block style %}
+<style type='text/css'>
+.form-group {
+  margin-bottom: 5px;
+}
+.btn-default {
+  margin-right: 8px;
+}
+#form-input {
+  margin: 20px 0;
+}
+.ck-editor__editable {
+  min-height: 400px;
+}
+</style>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/static/contrib/jssha/sha.js"></script>
+<script type="text/javascript" src="/static/contrib/ckeditor5/ckeditor.js"></script>
+<script type="text/javascript" src="/static/contrib/ckeditor5/translations/zh-cn.js"></script>
+<script type='text/javascript'>
+function calcHash() {
+    try {
+        var hash = new jsSHA($('#id_title').val() + $('#id_publish').val(), 'TEXT');
+        $('#id_slug').val(hash.getHash('SHA-1', 'HEX', 1).slice(0, 10));
+    }
+    catch (e) {
+        $('#id_slug').val(e);
+    }
+}
+$(function() {
+ClassicEditor
+    .create( document.querySelector( '#id_text' ), {
+        language: 'zh-cn',
+        ckfinder: {
+            uploadUrl: '/fileupload/upload/'
+        }
+    } )
+    .then( editor => {
+        console.log( editor );
+    } )
+    .catch( error => {
+        console.error( error );
+    } );
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<form class="form-horizontal" role="form" action="{% if id %}{% url 'note_set' id %}{% else %}{% url 'note_set' %}{% endif %}" method="POST">{% csrf_token %}
+  <div id="form-input">
+  <div class="form-group">
+    <label for="id_{{ form.title.html_name }}" class="col-sm-1 control-label">{{ form.title.label }}</label>
+    <div class="col-sm-7">{{ form.title }}</div>
+    <label for="id_{{ form.slug.html_name }}" class="col-sm-1 control-label">{{ form.slug.label }}</label>
+    <div class="col-sm-3">{{ form.slug }}</div>
+  </div>
+  <div class="form-group">
+    <label for="id_{{ form.author.html_name }}" class="col-sm-1 control-label">{{ form.author.label }}</label>
+    <div class="col-sm-2">{{ form.author }}</div>
+    <label for="id_{{ form.topic.html_name }}" class="col-sm-1 control-label text-muted">{{ form.topic.label }}</label>
+    <div class="col-sm-8">{{ form.topic }}</div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-12">{{ form.text }}</div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-3">{{ form.publish }}</div>
+    <div class="col-sm-2">{{ form.status }}</div>
+    <div class="col-sm-7">
+      <button class="btn btn-primary pull-right" type="submit">保存</button>
+    </div>
+  </div>
+  </div>
+</form>
+{% endblock %}

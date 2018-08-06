@@ -1,0 +1,53 @@
+{% extends "note/base_note.html" %}
+
+{% block list_nav_active %} class="active"{% endblock %}
+
+{% block content %}
+<div id="content">
+  {% if is_paginated %}
+    <ul class="pagination pagination-sm pull-right">
+      {% if page_obj.has_next %}
+      <li><a href="?page=last"><i class="icon-double-angle-left"></i></a></li>
+      <li><a href="?page={{ page_obj.next_page_number }}"><i class="icon-angle-left"></i></a></li>
+      {% else %}
+      <li class="disabled"><span><i class="icon-double-angle-left"></i></span></li>
+      <li class="disabled"><span><i class="icon-angle-left"></i></span></li>
+      {% endif %}
+      <li class="info"><span>{{ page_obj.number }}/{{ paginator.num_pages }}</span></li>
+      {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}"><i class="icon-angle-right"></i></a></li>
+      <li><a href="?page=1"><i class="icon-double-angle-right"></i></a></li>
+      {% else %}
+      <li class="disabled"><span><i class="icon-angle-right"></i></span></li>
+      <li class="disabled"><span><i class="icon-double-angle-right"></i></span></li>
+      {% endif %}
+    </ul>
+  {% endif %}
+
+  {% if object_list %}
+    {% block post_list %}
+    <table class="table table-condensed table-hover table-hide-overflow">
+      <thead>
+        <tr><th class="col-sm-9"></th>
+            <th class="col-sm-3"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in object_list %}
+        <tr{% ifequal post.status 1 %} class="danger"{% endifequal %}{% ifequal post.status 2 %} class="success"{% endifequal %}>
+          <td><a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title }}</a></td>
+          <td>{{ post.publish|date:"Y-m-d H:i" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endblock %}
+  {% else %}
+    {% if message %}
+    <div class="alert alert-success">{{ message }}</div>
+    {% else %}
+    <div class="alert alert-success">没有文章存在或可见。</div>
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}
