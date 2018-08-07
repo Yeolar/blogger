@@ -31,13 +31,10 @@
 <script src="{% static "ckeditor5/translations/zh-cn.js" %}"></script>
 <script>
 function calcHash() {
-    try {
-        var hash = new jsSHA($('#id_title').val() + $('#id_publish').val(), 'TEXT');
-        $('#id_slug').val(hash.getHash('SHA-1', 'HEX', 1).slice(0, 10));
-    }
-    catch (e) {
-        $('#id_slug').val(e);
-    }
+    {% if not id %}
+    var hash = new jsSHA($('#id_title').val() + $('#id_publish').val(), 'TEXT');
+    $('#id_slug').val(hash.getHash('SHA-1', 'HEX', 1).slice(0, 10));
+    {% endif %}
 }
 $(function() {
 ClassicEditor
