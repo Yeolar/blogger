@@ -4,7 +4,7 @@
 
 {% block title %}{{ block.super }} &raquo; 搜索结果{% endblock %}
 {% block script %}
-<script type="text/javascript">
+<script>
 function highlight(e, text, className) {
     var val = e.html();
     var pos = val.toLowerCase().indexOf(text.toLowerCase());

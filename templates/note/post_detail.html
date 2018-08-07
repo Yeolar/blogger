@@ -4,9 +4,9 @@
 {% block title %}{{ object.title }}{% endblock %}
 
 {% block script %}
-<script type="text/javascript" src="{% static "ckeditor5/ckeditor.js" %}"></script>
-<script type="text/javascript" src="{% static "ckeditor5/translations/zh-cn.js" %}"></script>
-<script type="text/javascript">
+<script src="{% static "ckeditor5/ckeditor.js" %}"></script>
+<script src="{% static "ckeditor5/translations/zh-cn.js" %}"></script>
+<script>
 /*
 $().showUp('.navbar', {
     upClass: 'navbar-show',

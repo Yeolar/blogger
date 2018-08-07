@@ -2,6 +2,19 @@
 
 {% block title %}{{ block.super }}{% endblock %}
 
+{% block script %}
+<script src="{% static "ckeditor5/ckeditor.js" %}"></script>
+<script src="{% static "ckeditor5/translations/zh-cn.js" %}"></script>
+<script>
+/*
+$().showUp('.navbar', {
+    upClass: 'navbar-show',
+    downClass: 'navbar-hide'
+});
+*/
+</script>
+{% endblock %}
+
 {% block content %}
 <div id="content">
   {% for post in object_list %}
