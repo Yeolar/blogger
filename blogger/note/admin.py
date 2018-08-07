@@ -12,10 +12,9 @@ class TopicAdmin(admin.ModelAdmin):
     list_filter         = ('weight', 'public')
     list_per_page       = 50
     search_fields       = ('name', 'desc')
-    prepopulated_fields = {'slug': ('name',)}
     fieldsets           = ((None, {
         'fields': (
-            ('name', 'slug'),
+             'name',
              'desc',
              'contents',
              'weight')

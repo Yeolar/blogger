@@ -16,8 +16,7 @@ from .managers import TopicManager, PostManager
 
 class Topic(models.Model):
 
-    name = models.CharField(u'名称', max_length=100)
-    slug = models.SlugField(u'别名', unique=True)
+    name = models.CharField(u'名称', max_length=100, unique=True)
     desc = models.TextField(u'描述', blank=True)
     contents = models.TextField(u'目录', blank=True)
     weight = models.IntegerField(u'权重', default=0)
@@ -37,7 +36,7 @@ class Topic(models.Model):
 
     @permalink
     def get_absolute_url(self):
-        return ('note_topic_detail', None, {'slug': self.slug})
+        return ('note_topic_detail', None, {'id': self.id})
 
 
 class Post(models.Model):

@@ -65,7 +65,7 @@ $().showUp('.navbar', {
 
     {% if object.topic %}
     <div id="post-other-topic" class="list-group pull-right hidden-print">
-        <a class="list-group-item active" href="{% url 'note_topic_detail' object.topic.slug %}"><strong>{{ object.topic }}</strong></a>
+        <a class="list-group-item active" href="{% url 'note_topic_detail' object.topic.id %}"><strong>{{ object.topic }}</strong></a>
       {% if user.is_superuser %}
         {% if object.get_previous_topic_post_su %}
         <a class="list-group-item" href="{{ object.get_previous_topic_post_su.get_absolute_url }}"><i class="icon-double-angle-left"></i> {{ object.get_previous_topic_post_su }}</a>

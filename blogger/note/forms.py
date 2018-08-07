@@ -16,15 +16,13 @@ class TopicForm(ModelForm):
 
     class Meta:
         model = Topic
-        fields = ('name', 'slug', 'desc', 'contents', 'weight')
+        fields = ('name', 'desc', 'contents', 'weight')
         widgets = {
             'name': TextInput(
                 attrs={
                     'class': 'form-control input-sm',
                     'placeholder': u'主题',
-                    'onkeyup': 'calcHash()',
                 }),
-            'slug': HiddenInput(attrs={'class': 'form-control input-sm'}),
             'desc': Textarea(attrs={'class': 'form-control input-sm'}),
             'contents': Textarea(
                 attrs={

@@ -53,7 +53,7 @@ urlpatterns = [
         name='note_draft_list'
     ),
     # topic
-    url(r'^topics/(?P<slug>[-\w]+)/$',
+    url(r'^topics/(?P<id>\d+)/$',
         TopicDetailView.as_view(),
         name='note_topic_detail'
     ),

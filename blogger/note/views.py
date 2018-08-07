@@ -89,8 +89,7 @@ class TopicDetailView(ListView):
     template_name = 'note/topic_detail.html'
 
     def get_queryset(self):
-        self.topic = get_object_or_404(
-                Topic, slug__iexact=self.kwargs['slug'])
+        self.topic = get_object_or_404(Topic, id=self.kwargs['id'])
         if self.request.user.is_superuser:
             return self.topic.post_set.published()
         else:
