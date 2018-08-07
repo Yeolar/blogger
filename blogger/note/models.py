@@ -18,8 +18,9 @@ class Topic(models.Model):
 
     name = models.CharField(u'名称', max_length=100)
     slug = models.SlugField(u'别名', unique=True)
-    text = models.TextField(u'文本', blank=True)
-    publish = models.DateTimeField(u'发布时间', default=datetime.min)
+    desc = models.TextField(u'描述', blank=True)
+    contents = models.TextField(u'目录', blank=True)
+    weight = models.IntegerField(u'权重', default=0)
     public = models.BooleanField(u'公开', editable=False, default=False)
 
     objects = TopicManager()
@@ -28,8 +29,8 @@ class Topic(models.Model):
         verbose_name = u'主题'
         verbose_name_plural = u'主题'
         db_table = 'note_topics'
-        ordering = ('-publish',)
-        get_latest_by = 'publish'
+        ordering = ('-weight', 'name')
+        get_latest_by = 'weight'
 
     def __unicode__(self):
         return u'%s' % self.name
@@ -111,21 +112,12 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         super(Post, self).save(*args, **kwargs)
         if self.topic:
-            if self.topic.publish < self.publish:
-                self.topic.publish = self.publish
             self.topic.public = (len(self.topic.post_set.public()) != 0)
             self.topic.save()
 
     def delete(self, *args, **kwargs):
-        if self.topic:
-            if self.topic.publish == self.publish:
-                post = self.get_previous_topic_post()
-                if post:
-                    self.topic.publish = post.publish
-                else:
-                    self.topic.publish = datetime.min
-            if self.status == 3:
-                self.topic.public = (len(self.topic.post_set.public()) > 1)
-            self.topic.save()
         super(Post, self).delete(*args, **kwargs)
+        if self.topic:
+            self.topic.public = (len(self.topic.post_set.public()) != 0)
+            self.topic.save()
 

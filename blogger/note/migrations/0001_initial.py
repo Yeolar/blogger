@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import datetime
-
 from django.db import migrations, models
+import datetime
 from django.conf import settings
 
 
@@ -39,16 +38,17 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=100, verbose_name='\u540d\u79f0')),
                 ('slug', models.SlugField(unique=True, verbose_name='\u522b\u540d')),
-                ('text', models.TextField(verbose_name='\u6587\u672c', blank=True)),
-                ('publish', models.DateTimeField(default=datetime.datetime(1, 1, 1, 0, 0), verbose_name='\u53d1\u5e03\u65f6\u95f4')),
+                ('desc', models.TextField(verbose_name='\u63cf\u8ff0', blank=True)),
+                ('contents', models.TextField(verbose_name='\u76ee\u5f55', blank=True)),
+                ('weight', models.IntegerField(default=0, verbose_name='\u6743\u91cd')),
                 ('public', models.BooleanField(default=False, verbose_name='\u516c\u5f00', editable=False)),
             ],
             options={
-                'ordering': ('-publish',),
+                'ordering': ('-weight', 'name'),
                 'db_table': 'note_topics',
                 'verbose_name': '\u4e3b\u9898',
                 'verbose_name_plural': '\u4e3b\u9898',
-                'get_latest_by': 'publish',
+                'get_latest_by': 'weight',
             },
         ),
         migrations.AddField(

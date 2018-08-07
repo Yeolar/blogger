@@ -14,13 +14,17 @@
 #form-input {
   margin: 20px 0;
 }
-#id_name, #id_publish {
+#id_name, #id_weight {
   height: 34px;
   font-size: 1em;
   line-height: 1.42857143;
 }
+#id_contents {
+  height: 300px;
+  font-size: 1em;
+}
 .ck-editor__editable {
-  min-height: 400px;
+  min-height: 95px;
 }
 </style>
 {% endblock %}
@@ -32,7 +36,7 @@
 <script type='text/javascript'>
 function calcHash() {
     try {
-        var hash = new jsSHA($('#id_name').val() + $('#id_publish').val(), 'TEXT');
+        var hash = new jsSHA($('#id_name').val(), 'TEXT');
         $('#id_slug').val(hash.getHash('SHA-1', 'HEX', 1).slice(0, 10));
     }
     catch (e) {
@@ -41,7 +45,7 @@ function calcHash() {
 }
 $(function() {
 ClassicEditor
-    .create( document.querySelector( '#id_text' ), {
+    .create( document.querySelector( '#id_desc' ), {
         language: 'zh-cn',
         ckfinder: {
             uploadUrl: '/fileupload/upload/'
@@ -66,11 +70,14 @@ ClassicEditor
     <div class="col-sm-0">{{ form.slug }}</div>
   </div>
   <div class="form-group">
-    <div class="col-sm-12">{{ form.text }}</div>
+    <div class="col-sm-12">{{ form.desc }}</div>
   </div>
   <div class="form-group">
-    <div class="col-sm-3">{{ form.publish }}</div>
-    <div class="col-sm-9">
+    <div class="col-sm-12">{{ form.contents }}</div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-2">{{ form.weight }}</div>
+    <div class="col-sm-10">
       <button class="btn btn-primary pull-right" type="submit">保存</button>
     </div>
   </div>
