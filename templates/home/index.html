@@ -4,13 +4,10 @@
 {% block title %}{{ block.super }}{% endblock %}
 
 {% block script %}
-<script src="{% static "ckeditor5/ckeditor.js" %}"></script>
 <script src="{% static "highlight/highlight.pack.js" %}"></script>
-<link rel="stylesheet" type="text/css" href="{% static "highlight/styles/default.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "highlight/styles/github.css" %}" />
 <script>
 $(document).ready(function() {
-    hljs.configure({useBR: true});
-
     $('pre p').each(function(i, block) {
       hljs.highlightBlock(block);
     });
