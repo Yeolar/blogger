@@ -5,7 +5,16 @@
 
 {% block script %}
 <script src="{% static "ckeditor5/ckeditor.js" %}"></script>
+<script src="{% static "highlight/highlight.pack.js" %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static "highlight/styles/default.css" %}" />
 <script>
+$(document).ready(function() {
+    hljs.configure({useBR: true});
+
+    $('pre p').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+});
 /*
 $().showUp('.navbar', {
     upClass: 'navbar-show',
